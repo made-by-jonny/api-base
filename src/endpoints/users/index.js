@@ -2,12 +2,13 @@ import express from 'express'
 import model from './model'
 import {createUser, deleteUser, userCheck} from './helpers'
 import jwt from 'jsonwebtoken'
+import authenticate from '../../middleware/authentication'
 const secret = process.env.JWTSECRET || 'unsecureaf' // don't use this in real application
 
 const router = express.Router()
 
-router.get('/users', async (req, res) => {
-    const data = await model.find()
+router.get('/users',authenticate, async (req, res) => {
+    const data = await model.find({}, 'email')
     res.json(data)
 })
 

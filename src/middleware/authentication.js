@@ -5,6 +5,7 @@ export default async function authenticate(req,res,next){
     const token = req.cookies.auth_token
     try{
         const {id} = await jwt.verify(token, secret);
+        req.current_user = id
         next()
     }catch(e){
         res.status(401).json({message: "unauthorised"})

@@ -53,4 +53,8 @@ router.post('/login', async (req, res) => {
     } 
 })
 
+router.post('/login', async (req, res) => {
+    res.cookie('auth_token', "", { expires: new Date(), httpOnly: true });
+})
+
 export default router

@@ -7,7 +7,8 @@ const secret = process.env.JWTSECRET || 'unsecureaf' // don't use this in real a
 
 const router = express.Router()
 
-router.get('/users',authenticate, async (req, res) => {
+router.get('/users', async (req, res) => {
+    console.log(model)
     const data = await model.find({}, 'email')
     res.json(data)
 })
@@ -38,6 +39,7 @@ router.delete('/users/:id', async (req, res) => {
 
 router.post('/login', async (req, res) => {
     const {email, password} = req.body
+    
     try{
         const user = await userCheck(email, password)
         if(user){
@@ -49,12 +51,18 @@ router.post('/login', async (req, res) => {
             })
         }
     }catch(err){
+        
         res.status(400).json(err.message)
     } 
 })
 
-router.post('/login', async (req, res) => {
+router.post('/logout', async (req, res) => {
     res.cookie('auth_token', "", { expires: new Date(), httpOnly: true });
+})
+
+router.get('/ping',authenticate, (req, res) => {
+
+    res.send('pong')
 })
 
 export default router

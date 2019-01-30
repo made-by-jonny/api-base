@@ -14,7 +14,7 @@ UserSchema.path('email').validate(async (value) => {
         throw new Error('Email already exists')
     }
     return true
-}, 'Email already exists');
+}, 'Email already exists')
 
 UserSchema.path('email').validate((value) => {
     const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/

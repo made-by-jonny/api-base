@@ -14,13 +14,15 @@ export async function userCheck(email, password){
     if(user){
         const {password_hash} = user
         const passwordMatch = await compare_pass(password, password_hash)
+        
         if(passwordMatch){
             return user
         }else {
             return false
         }
     }else{
-        throw new Error("User not found")
+        
+        return false
     } 
 }
 
